@@ -164,19 +164,17 @@ class SokobanModel:
         
     def is_level_complete(self):
         """
-        • Vérifie si le niveau est terminé en s'assurant que toutes les boîtes 
-          sont sur des objectifs
-        • Implémente deux approches équivalentes pour une meilleure robustesse
-        • Évite l'itération sur tous les emplacements du plateau en utilisant les ensembles
+        • Vérifie si le niveau est terminé en s'assurant que tous les objectifs 
+          sont couverts par des boîtes
+        • Utilise les ensembles pour une vérification efficace
         """
-        # Approche 1: Vérifier qu'il n'y a pas de boîtes en dehors des objectifs
-        for box_pos in self.boxes:
-            if box_pos not in self.goals:
+        # Vérifier que tous les objectifs sont couverts par des boîtes
+        for goal_pos in self.goals:
+            if goal_pos not in self.boxes:
                 return False
-        
-        # Approche 2: Vérifier que toutes les boîtes sont sur des objectifs
-        # La vérification len(self.boxes) > 0 évite les faux positifs si aucune boîte n'existe
-        return len(self.boxes) > 0 and all(box_pos in self.goals for box_pos in self.boxes)
+    
+        # S'assurer qu'il y a au moins un objectif
+        return len(self.goals) > 0
 
 
 class SokobanPygameView:

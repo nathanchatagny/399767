@@ -1,5 +1,5 @@
 import unittest
-from exercise_4_3.sokoban_model import SokobanModel, Symbol, MoveResponse
+from sokoban_model import SokobanModel, Symbol, MoveResponse
 
 class TestSokobanModel(unittest.TestCase):
     def test_level_completion_empty(self):

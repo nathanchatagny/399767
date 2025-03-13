@@ -125,13 +125,7 @@ class SokobanModel:
         
     def is_level_complete(self):
         """
-        Check if there are no more visible boxes (Symbol.BOX).
-        Returns True if all boxes are on goals, False otherwise.
+        Check if all goals are covered by boxes.
+        Returns True if all goals have a box on them, False otherwise.
         """
-        # Check if there are any boxes that are not on goals
-        for box_pos in self.boxes:
-            if box_pos not in self.goals:
-                return False
-        
-        # Alternative: All boxes must be on goals (either approach should work)
-        return len(self.boxes) > 0 and all(box_pos in self.goals for box_pos in self.boxes)
+        return all(goal in self.boxes for goal in self.goals)
