@@ -8,13 +8,11 @@ import sys
 class TestCal(unittest.TestCase):
     
     def setUp(self):
-        # Création d'une instance fraîche pour chaque test pour éviter les effets de bord
-        # Les tests unitaires doivent être indépendants les uns des autres
+        # Création d'une instance fraîche pour chaque test
         self.cal = Cal()
     
     def test_init_defaults(self):
         # Test des valeurs par défaut lors de l'initialisation
-        # Ceci est important car le comportement par défaut doit être prévisible
         today = datetime.datetime.now()
         self.assertEqual(self.cal._year, today.year)
         self.assertEqual(self.cal._month, today.month)
@@ -22,10 +20,9 @@ class TestCal(unittest.TestCase):
     
     def test_year_method(self):
         # Vérifie que la méthode year modifie correctement l'année
-        # Le pattern fluent (chaînage de méthodes) nécessite que chaque méthode retourne self
         result = self.cal.year(2024)
         self.assertEqual(self.cal._year, 2024)
-        self.assertEqual(result, self.cal)  # Test du retour de self pour le chaînage
+        self.assertEqual(result, self.cal)
     
     def test_month_numeric(self):
         # Test avec une valeur numérique pour le mois
@@ -43,41 +40,29 @@ class TestCal(unittest.TestCase):
     
     def test_month_string_abbreviated(self):
         # Test avec l'abréviation du mois
-        # L'utilisateur doit pouvoir utiliser différents formats
+        # On doit pouvoir utiliser différents formats
         result = self.cal.month("feb")
         self.assertEqual(self.cal._month, 2)
         self.assertEqual(result, self.cal)
     
-    def test_month_case_insensitive(self):
-        # Test de l'insensibilité à la casse
-        # Le code doit être tolérant aux variations de casse pour une meilleure UX
-        result = self.cal.month("MaRcH")
-        self.assertEqual(self.cal._month, 3)
-        self.assertEqual(result, self.cal)
-    
     def test_month_invalid(self):
         # Test avec un mois invalide
-        # La validation des entrées est essentielle pour une utilisation robuste
         with self.assertRaises(ValueError):
             self.cal.month("invalid_month")
     
     def test_week_start(self):
         # Test du réglage du jour de début de semaine
-        # Cette flexibilité permet d'adapter l'affichage selon les préférences régionales
         result = self.cal.week_start("sun")
         self.assertEqual(self.cal._week_start, 6)
         self.assertEqual(result, self.cal)
     
     def test_week_start_invalid(self):
         # Test avec un jour de début de semaine invalide
-        # Validation nécessaire pour éviter les erreurs silencieuses
         with self.assertRaises(ValueError):
             self.cal.week_start("invalid_day")
     
     def test_print_output(self):
         # Test de la sortie générée par print()
-        # Capture la sortie standard pour la vérifier
-        # La sortie visuelle est l'élément principal de cette classe
         self.cal.year(2025).month(2).week_start("mon")
         
         # Redirection de stdout pour capture

@@ -2,17 +2,17 @@ import datetime
 
 class Cal:
     def __init__(self):
-        # Initialisation avec l'année et le mois actuels pour que l'utilisateur 
-        # n'ait pas besoin de les spécifier s'il veut le calendrier du mois en cours
+        # Initialisation avec l'année et le mois actuels pour que je
+        # n'ai pas besoin de les spécifier si je veux le calendrier du mois en cours
         self._year = datetime.datetime.now().year
         self._month = datetime.datetime.now().month
         
-        # Définit le début de la semaine à lundi (0) par défaut, conformément à la norme ISO
+        # Définit le début de la semaine à lundi (0) par défaut
         # Cette valeur de décalage sera utilisée pour réorganiser l'affichage des jours
         self._week_start = 0
         
         # Dictionnaires de conversion pour permettre une interface flexible
-        # Accepter plusieurs formats de saisie améliore l'expérience utilisateur
+        # Accepter plusieurs formats de saisie
         self._month_dict = {
             "jan": 1, "january": 1, 
             "feb": 2, "february": 2,
@@ -39,19 +39,18 @@ class Cal:
 
     def year(self, year):
         # Méthode simple pour définir l'année
-        # Retourne self pour permettre le chaînage des méthodes (pattern fluent interface)
+        # Retourne self pour permettre le chaînage des méthodes
         self._year = year
         return self
     
     def month(self, month):
         # Convertit le mois en nombre si c'est une chaîne
-        # Cette flexibilité permet à l'utilisateur d'utiliser soit des nombres, soit des noms
+        # Cette flexibilité permet d'utiliser soit des nombres, soit des noms
         if isinstance(month, str):
-            month = month.lower()  # Normalisation pour insensibilité à la casse
+            month = month.lower()
             if month in self._month_dict:
                 self._month = self._month_dict[month]
             else:
-                # Lever une exception est préférable à un comportement silencieux en cas d'erreur
                 raise ValueError(f"Mois invalide: {month}")
         else:
             self._month = month
@@ -60,7 +59,7 @@ class Cal:
     def week_start(self, day):
         # Convertit le jour de début de semaine en décalage
         # Cette personnalisation permet d'adapter l'affichage aux conventions régionales
-        day = day.lower()  # Normalisation pour une interface plus tolérante
+        day = day.lower()
         if day in self._day_dict:
             self._week_start = self._day_dict[day]
         else:
@@ -69,7 +68,6 @@ class Cal:
     
     def print(self):
         # Noms des mois pour l'affichage
-        # Utilisation des noms complets pour une meilleure lisibilité
         month_names = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
