@@ -3,7 +3,7 @@ import pygame
 from enum import Enum
 
 """
-J'ai décidé de combiner sokoban et sokoban_model pour n'avoir qu'un fichier
+J'ai décidé de combiner sokoban, sokoban_controller et sokoban_model pour n'avoir qu'un fichier
 """
 
 class Symbol(Enum):
